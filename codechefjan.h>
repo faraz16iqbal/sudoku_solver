@@ -1,0 +1,103 @@
+   #include<bits/stdc++.h>
+   using namespace std;
+
+   typedef long long ll;
+   typedef vector <ll> vll;
+   typedef vector <int> vi;
+   typedef set <ll> S;
+   typedef set <int> si;
+   typedef queue <ll> qll;
+   typedef map <ll, ll> mll;
+   typedef pair <ll, ll> pll;
+   typedef vector <pair <ll , ll> > vpll;
+
+   int arr[505][505];
+
+void solve()
+{
+  
+  ll n, h;
+  cin>>n>>h;
+  vll v(n);
+
+  ll sum = 0;
+
+  for(auto &i: v){
+    cin>>i;
+    sum+=i;
+  }
+
+  ll h1,h2, count;
+  h1=0, h2=0, count = 0;
+
+  sort(v.begin(), v.end(), greater<int>());
+
+  ll i = 0;
+  while(h > h1 && i!=n){
+    h1+=v[i];
+    i++;
+    count++;
+  }
+
+  ll count2 = count;
+
+  if(h1 > h){
+    // cout<<h1<<" ";
+    count2--;  
+    i--;
+    h1-=v[i];
+    for(ll j=n-1; j>=i; j--){
+      // cout<<v[j] + h1 <<" ";
+      if(v[j]+h1 >= h){
+        h1+=v[j];
+        v[j] = -1;
+        count2++;
+        break;
+      }
+    }
+  }
+
+  // cout<<h1<<" ";
+
+  while(h > h2 && i!=n){
+    if(v[i] == -1){
+      i++;
+      continue;
+    }
+    h2+=v[i];
+    i++;
+    count2++;
+    count++;
+  }
+
+  // cout<<h2<<" ";
+
+  if(h1>=h &&  h2>=h)
+    cout<<min(count, count2);
+  else
+    cout<<-1;
+}
+
+      
+
+   int main() 
+   { 
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL); 
+            
+       // #ifndef  ONLINE_JUDGE 
+       // freopen("input.txt", "r", stdin); 
+       // freopen("output.txt", "w", stdout); 
+       // #endif 
+      
+      int t=1;
+      cin>>t;
+      while(t--) 
+      { 
+         solve();
+         cout<<"\n";
+
+      }
+      return 0;
+   } 
+      
